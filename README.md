@@ -33,11 +33,11 @@ This directory contains empirical tests and adversarial verification engines usi
 ### 2. `/formal_ia_proof`
 This directory transitions from empirical sampling to mathematically rigorous computer-assisted proof generation.
 
-* **`proof-2.py`**
+* **`arb_prover.py`** *(Note: Rename your IA script to this if you haven't!)*
   * **Objective:** Rigorously prove $g(u, w) = \kappa(u, w) - \kappa(1-u, w) \le 0$ on the domain $(0, 0.5)^2$.
   * **Methodology:** Interval Arithmetic (IA) and Domain Decomposition (Branch and Bound).
-  * **Underlying Engine:** Uses `python-flint`, a wrapper for the **Arb** C-library, ensuring arbitrary-precision ball arithmetic with strict IEEE 754 directed rounding.
-  * **Algorithm:** The domain is placed in a queue. For each box $U \times W$, Arb computes strict bounds for $g(U,W)$. If the upper bound $\le 0$, the box is verified. If the interval straddles zero, the box is bisected (Skelboe-Moore algorithm).
+  * **Underlying Engine:** Uses `python-flint`, a wrapper for the **Arb** C-library, ensuring arbitrary-precision ball arithmetic with strict IEEE 754 directed rounding .
+  * **Architecture & Error Handling:** The algorithm uses semantic endpoint enclosures to rigorously evaluate boxes. It features a strict exception-routing system that purposefully catches mathematical domain errors (e.g., `ValueError`, `ZeroDivisionError`) caused by IA overestimation, using them to intelligently trigger quadtree subdivisions while strictly crashing on unexpected code execution failures.
 
 ## Key Mathematical Simplifications for IA
 To prevent the interval overestimation (the "Dependency Problem") from causing infinite bisection loops, we applied the following analytic simplifications before passing equations to the Arb engine:
@@ -46,4 +46,4 @@ To prevent the interval overestimation (the "Dependency Problem") from causing i
 3. **Diagonal Isolation:** At $u=w$, the function divides by zero. The script isolates a narrow strip ($|u-w| < 0.005$) and leaves it unverified by IA, to be handled analytically.
 
 ## Benchmarks
-At a maximum bisection depth of 9 on a single CPU core, `proof-2.py` successfully verifies approximately 32% of the interior domain with zero mathematical errors. Deeper bisection depths (14+) are required to resolve the dependency problem near the boundaries, representing an ideal use case for massively parallel, high-compute environments.
+The default script is configured to a maximum bisection depth of 7 for rapid verification on standard hardware. By bumping the depth to 9 on a single CPU core, the script successfully verifies approximately 32% of the interior domain with zero mathematical errors. Deeper bisection depths (14+) are required to resolve the dependency problem near the boundaries, representing an ideal use case for massively parallel, high-compute AI environments.
