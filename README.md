@@ -80,10 +80,10 @@ The four-variable script aims to verify
 
 $$
 \begin{aligned}
-&\phi\!\left(\frac{1-|H_2^{-1}(e_u)-H_2^{-1}(e_w)|}{2}, \frac{e_u+e_w}{2}\right)
+&\phi\!\left(\frac{1-\lvert H_2^{-1}(e_u)-H_2^{-1}(e_w)\rvert}{2}, \frac{e_u+e_w}{2}\right)
 + \frac{\bigl(H_2^{-1}(e_u)-H_2^{-1}(e_w)\bigr)\bigl(J(H_2^{-1}(e_w))-J(H_2^{-1}(e_u))\bigr)}{2} \\
 &\qquad
-- \phi\!\left(\frac{1-|\mu_u-\mu_w|}{2}, \frac{e_u+e_w}{2}\right)
+- \phi\!\left(\frac{1-\lvert\mu_u-\mu_w\rvert}{2}, \frac{e_u+e_w}{2}\right)
 \ge
 \phi\!\left(\frac{\mu_u+\mu_w}{2}, \frac{e_u+e_w}{2}\right)
 - \frac{1}{2}\phi(\mu_u,e_u) - \frac{1}{2}\phi(\mu_w,e_w).
