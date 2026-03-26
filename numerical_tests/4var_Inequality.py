@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 torch.set_default_dtype(torch.float64)
 EPS = 1e-12
 
-# --- Core Math Functions (Unchanged) ---
+# --- Core Math Functions ---
 
 def H2(x):
     x = torch.clamp(x, EPS, 1 - EPS)
@@ -42,7 +42,7 @@ def H2inv(y):
         hi = torch.where(mask, hi, mid)
     return (lo + hi) / 2
 
-# --- The Phi Function Implementation (Unchanged) ---
+# --- The Phi Function Implementation ---
 
 def eta(z):
     u = H2inv(z)
@@ -73,7 +73,7 @@ def phi(m, e):
         result[active_mask] = term1 - term2
     return result
 
-# --- The Inequality Check (Unchanged) ---
+# --- The Inequality Check ---
 
 def inequality_diff(mu, mw, eu, ew):
     u_eu = H2inv(eu)
