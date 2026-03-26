@@ -130,4 +130,6 @@ To prevent the interval overestimation (the "Dependency Problem") from causing i
 3. **Diagonal Isolation:** At $u=w$, the function divides by zero. The script isolates a small strip ($|u-w| < 0.005$) and leaves it unverified by IA, to be handled analytically.
 
 ## Benchmarks
-The default IA script is configured to a maximum bisection depth of 7 for rapid verification on standard hardware. By increasing the depth to 9 on a single CPU core, the script successfully verifies approximately 32% of the interior domain with zero mathematical errors. Deeper bisection depths (14+) are required to resolve the dependency problem near the boundaries, representing an ideal use case for parallel high-compute AI environments.
+The default IA script is configured to a maximum bisection depth of 7 for rapid verification on standard hardware. By increasing the depth to 9 on a single CPU core, the script successfully verifies approximately 32% of the interior domain with zero mathematical errors. 
+
+Deeper bisection depths (>=14, for instance) will help resolve the dependency problem near the boundaries and provide greater verification. It represents an ideal use case for parallel high-compute AI environments.
