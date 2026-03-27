@@ -52,7 +52,7 @@ g(l,m) = \kappa(H_2^{-1}(l), H_2^{-1}(m)), \qquad (l,m) \in (0,1)^2,
 and seeks to show that $g$ is jointly convex on its domain.
 
 ### 3. Four-Variable Inequality
-For admissible quadruples $(\mu_u, \mu_w, e_u, e_w)$ satisfying
+For quadruples $(\mu_u, \mu_w, e_u, e_w) \in [0,1]^2$ satisfying :
 
 ```math
 H_2(\mu_u) \ge e_u, \qquad H_2(\mu_w) \ge e_w,
@@ -128,6 +128,39 @@ To prevent the interval overestimation (the "Dependency Problem") from causing i
 1. **Eliminating Absolute Values:** For $(u, w) \in (0, 0.5)^2$, we know strictly that $1 - u - w > 0$. We analytically removed the $|1-u-w|$ term, smoothing the search space.
 2. **Rigorous Inverse Bisection:** Arb lacks a built-in inverse for $L(x)$. Since $L(x)$ is strictly monotonically increasing on $(0, 0.5)$, we implemented an Interval Bisection algorithm to strictly bound $L^{-1}(y)$.
 3. **Diagonal Isolation:** At $u=w$, the function divides by zero. The script isolates a small strip ($|u-w| < 0.005$) and leaves it unverified by IA, to be handled analytically.
+
+## Prerequisites to run project
+The repository assumes a recent Python 3 environment. The external libraries required to run the scripts are:
+
+### Numerical scripts (`numerical_tests/`)
+Install the packages below to run `4var_Inequality.py`, `conjecture_final.py`, and `asymmetry_surface_plot.py`:
+
+```bash
+pip install torch numpy matplotlib
+```
+
+These cover:
+- `torch` for tensor computations and automatic differentiation
+- `numpy` for auxiliary numerical routines
+- `matplotlib` for the histogram and surface visualizations
+
+### Formal interval-arithmetic proof (`formal_ia_proof/`)
+To run the IA proof script, install `python-flint` with Arb support:
+
+```bash
+pip install python-flint
+```
+
+The formal proof code specifically requires the import
+
+```bash
+python -c "from flint import arb"
+```
+
+to succeed. On platforms where a compatible wheel is unavailable, you may need to install the underlying FLINT/Arb libraries first and then use a matching `python-flint` build.
+
+### Standard-library modules
+The remaining imports used by the project, such as `time`, `collections`, and `dataclasses`, are part of the Python standard library and do not require separate installation.
 
 ## Benchmarks
 The default IA script is configured to a maximum bisection depth of 7 for rapid verification on standard hardware. By increasing the depth to 9 on a single CPU core, the script successfully verifies approximately 32% of the interior domain with zero mathematical errors.
